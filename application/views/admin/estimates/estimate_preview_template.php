@@ -313,6 +313,20 @@
                                 <address class="tw-text-neutral-500">
                                     <?php echo format_organization_info(); ?>
                                 </address>
+                                
+                                <?php $pdf_custom_fields = get_custom_fields('estimate', ['show_on_pdf' => 1]);
+                                foreach ($pdf_custom_fields as $field) {
+                                    $value = get_custom_field_value($estimate->id, $field['id'], 'estimate');
+                                    if ($value == '') {
+                                        continue;
+                                    } ?>
+                                        <p class="no-mbot">
+                                            <span class="bold"><?php echo e($field['name']); ?>: </span>
+                                            <?php echo $value; ?>
+                                        </p>
+                                        <?php
+                                } ?>
+                                
                             </div>
                             <div class="col-sm-6 text-right">
                                 <span class="bold"><?php echo _l('estimate_to'); ?></span>
@@ -331,12 +345,12 @@
                                     </span>
                                     <?php echo e($estimate->date); ?>
                                 </p>
-                                <?php if (!empty($estimate->expirydate)) { ?>
+                                <!-- <?php if (!empty($estimate->expirydate)) { ?>
                                 <p class="no-mbot">
                                     <span class="bold"><?php echo _l('estimate_data_expiry_date'); ?>:</span>
                                     <?php echo e($estimate->expirydate); ?>
                                 </p>
-                                <?php } ?>
+                                <?php } ?> -->
                                 <?php if (!empty($estimate->reference_no)) { ?>
                                 <p class="no-mbot">
                                     <span class="bold"><?php echo _l('reference_no'); ?>:</span>
@@ -355,18 +369,7 @@
                                     <?php echo e(get_project_name_by_id($estimate->project_id)); ?>
                                 </p>
                                 <?php } ?>
-                                <?php $pdf_custom_fields = get_custom_fields('estimate', ['show_on_pdf' => 1]);
-                           foreach ($pdf_custom_fields as $field) {
-                               $value = get_custom_field_value($estimate->id, $field['id'], 'estimate');
-                               if ($value == '') {
-                                   continue;
-                               } ?>
-                                <p class="no-mbot">
-                                    <span class="bold"><?php echo e($field['name']); ?>: </span>
-                                    <?php echo $value; ?>
-                                </p>
-                                <?php
-                           } ?>
+                                
                             </div>
                         </div>
                         <div class="row">
@@ -391,6 +394,20 @@
                                                 <?php echo e(app_format_money($estimate->subtotal, $estimate->currency_name)); ?>
                                             </td>
                                         </tr>
+                                        
+                                        <?php if(isset($estimate->labour_charge)){ ?> 
+                                        <tr id="labour-charge">
+                                            <td>
+                                                <span class="bold tw-text-neutral-700">
+                                                    <?php echo _l('estimate_labour_chage'); ?>
+                                                </span>
+                                            </td>
+                                            <td class="labour-charge">
+                                                <?php echo e(app_format_money($estimate->labour_charge, $estimate->currency_name)); ?>
+                                            </td>
+                                        </tr>
+                                        <?php } ?>
+
                                         <?php if (is_sale_discount_applied($estimate)) { ?>
                                         <tr>
                                             <td>

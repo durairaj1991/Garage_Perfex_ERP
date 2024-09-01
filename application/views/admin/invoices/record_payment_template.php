@@ -50,6 +50,12 @@
                             placeholder="<?php echo _l('invoice_record_payment_note_placeholder'); ?>"
                             id="note"></textarea>
                     </div>
+                    <div class="form-gruoup">
+                        <label for="client_note" class="control-label"><?php echo _l('record_payment_leave_note'); ?></label>
+                        <textarea name="client_note" class="form-control" rows="8"
+                            placeholder="<?php echo _l('invoice_add_edit_client_note'); ?>"
+                            id="client_note"></textarea>
+                    </div>
                 </div>
                 <div class="col-md-12 tw-mt-3">
                     <?php

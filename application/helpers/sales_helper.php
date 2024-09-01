@@ -682,6 +682,7 @@ function add_new_sales_item_post($item, $rel_id, $rel_type)
                     'long_description' => nl2br($item['long_description']),
                     'qty'              => $item['qty'],
                     'rate'             => number_format($item['rate'], get_decimal_places(), '.', ''),
+                    'item_discount'    => number_format($item['item_discount'], get_decimal_places(), '.', ''),
                     'rel_id'           => $rel_id,
                     'rel_type'         => $rel_type,
                     'item_order'       => $item['order'],
@@ -709,8 +710,10 @@ function update_sales_item_post($item_id, $data, $field = '')
     $update = [];
     if ($field !== '') {
         if ($field == 'long_description') {
-            $update[$field] = nl2br($data[$field]);
+            $update[$field] = $data[$field];
         } elseif ($field == 'rate') {
+            $update[$field] = number_format($data[$field], get_decimal_places(), '.', '');
+        }elseif ($field == 'item_discount') {
             $update[$field] = number_format($data[$field], get_decimal_places(), '.', '');
         } elseif ($field == 'item_order') {
             $update[$field] = $data['order'];
@@ -721,8 +724,9 @@ function update_sales_item_post($item_id, $data, $field = '')
         $update = [
             'item_order'       => $data['order'],
             'description'      => $data['description'],
-            'long_description' => nl2br($data['long_description']),
+            'long_description' => $data['long_description'],
             'rate'             => number_format($data['rate'], get_decimal_places(), '.', ''),
+            'item_discount'    => number_format($data['item_discount'], get_decimal_places(), '.', ''),
             'qty'              => $data['qty'],
             'unit'             => $data['unit'],
         ];

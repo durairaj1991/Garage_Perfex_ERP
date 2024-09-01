@@ -1,15 +1,22 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
-
 $dimensions = $pdf->getPageDimensions();
 
 // Get Y position for the separation
 $y = $pdf->getY();
 
+$info_right_column = '';
+$info_left_column  = '';
+
 $company_info = '<div style="color:#424242;">';
 $company_info .= format_organization_info();
 $company_info .= '</div>';
+
+// Add logo
+$info_left_column .= pdf_logo_url();
+pdf_multi_row($info_left_column, $info_right_column, $pdf, ($dimensions['wk'] / 2) - $dimensions['lm']);
+// Write top left logo and right column info/text
 
 // Bill to
 $client_details = format_customer_info($payment->invoice_data, 'payment', 'billing');
@@ -67,25 +74,32 @@ $pdf->Ln(5);
 $tblhtml = '<table width="100%" bgcolor="#fff" cellspacing="0" cellpadding="5" border="0">
 <tr height="30" style="color:#fff;" bgcolor="#3A4656">
     <th width="' . ($amountDue ? 20 : 25) . '%;">' . _l('payment_table_invoice_number') . '</th>
+    <th width="' . ($amountDue ? 20 : 25) . '%;">' . _l('') . '</th>
     <th width="' . ($amountDue ? 20 : 25) . '%;">' . _l('payment_table_invoice_date') . '</th>
-    <th width="' . ($amountDue ? 20 : 25) . '%;">' . _l('payment_table_invoice_amount_total') . '</th>
-    <th width="' . ($amountDue ? 20 : 25) . '%;">' . _l('payment_table_payment_amount_total') . '</th>';
-    if ($amountDue) {
-        $tblhtml .= '<th width="20%">' . _l('invoice_amount_due') . '</th>';
-    }
+    <th width="' . ($amountDue ? 20 : 25) . '%;">' . _l('') . '</th>';
+   
 
 $tblhtml .= '</tr>';
 
 $tblhtml .= '<tbody>';
 $tblhtml .= '<tr>';
 $tblhtml .= '<td>' . format_invoice_number($payment->invoice_data->id) . '</td>';
+$tblhtml .= '<td>' . '' . '</td>';
 $tblhtml .= '<td>' . _d($payment->invoice_data->date) . '</td>';
-$tblhtml .= '<td>' . app_format_money($payment->invoice_data->total, $payment->invoice_data->currency_name) . '</td>';
-$tblhtml .= '<td>' . app_format_money($payment->amount, $payment->invoice_data->currency_name) . '</td>';
-if ($amountDue) {
-    $tblhtml .= '<td style="color:#fc2d42">' . app_format_money($payment->invoice_data->total_left_to_pay, $payment->invoice_data->currency_name) . '</td>';
-}
+$tblhtml .= '<td>' . '' . '</td>';
+
 $tblhtml .= '</tr>';
 $tblhtml .= '</tbody>';
 $tblhtml .= '</table>';
 $pdf->writeHTML($tblhtml, true, false, false, false, '');
+
+if (!empty($payment->client_note)) {
+    $pdf->Ln(4);
+    $pdf->SetFont($font_name, 'B', $font_size);
+    $pdf->Cell(0, 0, _l('invoice_add_edit_client_note'), 0, 1, 'L', 0, '', 0);
+    $pdf->SetFont($font_name, '', $font_size);
+    $pdf->Ln(2);
+    $pdf->writeHTMLCell('', '', '', '', $payment->client_note, 0, 1, false, true, 'L', true);
+}
+
+$pdf->Cell(0, 0, _l('Cashier Signature  _______________________'), 0, 1, 'R', 0, '', 0);

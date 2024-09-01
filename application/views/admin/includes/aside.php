@@ -1,4 +1,16 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
+<style>
+    img.img-responsive.newbie {
+       height: 55px !important;
+    }
+    .tw-py-2 {
+        padding-bottom: 1.5rem !important;
+        padding-top: 1.5rem !important;
+    }
+    .tw-h-\[63px\] {
+        height: 90px !important;
+    }
+</style>
 <aside id="menu" class="sidebar sidebar">
     <ul class="nav metis-menu" id="side-menu">
         <li class="tw-mt-[63px] sm:tw-mt-0 -tw-mx-2 tw-overflow-hidden sm:tw-bg-neutral-900/50">

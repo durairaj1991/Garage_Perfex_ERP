@@ -207,6 +207,9 @@ class Payments_model extends App_Model
                 $data['note'] = nl2br($this->session->userdata('payment_admin_note'));
                 $this->session->unset_userdata('payment_admin_note');
             }
+            if (isset($data['client_note'])) {
+                $data['client_note'] = nl2br($data['client_note']);
+            }
         } else {
             $data['date'] = date('Y-m-d H:i:s');
         }
@@ -393,6 +396,7 @@ class Payments_model extends App_Model
         $updated      = false;
         $data['date'] = to_sql_date($data['date']);
         $data['note'] = nl2br($data['note']);
+        $data['client_note'] = nl2br($data['client_note']);
 
         $data = hooks()->apply_filters('before_payment_updated', $data, $id);
 

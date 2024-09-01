@@ -1,3 +1,51 @@
                                 Project Name - Automotive Erp (Changed Files Here)
-1). Estimate Section-:
-    1).
+Local Login:
+Url - http://localhost/automotive/admin
+UserName - alraedautomobile@dotswebsolution.com
+Password - It@2024 
+
+Server Login:
+url - https://automotive.technologiesmeta.com/admin/
+admin - alraedautomobile@dotswebsolution.com
+pwd - It@2024
+
+Server Config Database Credentials:
+db - u319832977_automotive
+UserName - u319832977_automotive
+Password - Automotive@#123
+
+1). Sql: ALTER TABLE `tblinvoicepaymentrecords` ADD `client_note` TEXT NULL DEFAULT NULL AFTER `note`;
+2). Sql: ALTER TABLE `tblitemable` ADD `item_discount` DECIMAL(15,2) NULL DEFAULT NULL AFTER `rate`;
+3). Sql: ALTER TABLE `tblestimates` ADD `labour_charge` DECIMAL(15,2) NULL DEFAULT NULL AFTER `discount_type`;
+
+1). Files Section-:
+        modified:   application/controllers/admin/Estimates.php
+        modified:   application/helpers/sales_helper.php
+        modified:   application/helpers/template_helper.php
+        modified:   application/language/english/english_lang.php
+        modified:   application/libraries/App_items_table.php
+        modified:   application/libraries/App_items_table_template.php
+        modified:   application/libraries/pdf/PDF_Signature.php
+        modified:   application/models/Estimates_model.php
+        modified:   application/models/Payments_model.php
+        modified:   application/views/admin/estimates/_add_edit_items.php
+        modified:   application/views/admin/estimates/estimate_preview_template.php
+        modified:   application/views/admin/estimates/estimate_template.php
+        modified:   application/views/admin/estimates/table_html.php
+        modified:   application/views/admin/includes/aside.php
+        modified:   application/views/admin/invoices/invoice_preview_template.php
+        modified:   application/views/admin/invoices/record_payment_template.php
+        modified:   application/views/admin/payments/payment.php
+        modified:   application/views/admin/tables/estimates.php
+        modified:   application/views/themes/perfex/views/estimatehtml.php
+        modified:   application/views/themes/perfex/views/estimatepdf.php
+        modified:   application/views/themes/perfex/views/invoicehtml.php
+        modified:   application/views/themes/perfex/views/invoicepdf.php
+        modified:   application/views/themes/perfex/views/paymentpdf.php
+        modified:   assets/builds/vendor-admin.css
+        modified:   assets/js/main.min.js
+        modified:   document-changed-file
+        
+        
+
+

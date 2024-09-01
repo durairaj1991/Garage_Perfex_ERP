@@ -193,7 +193,7 @@
                         <?php $value = (isset($estimate) ? _d($estimate->date) : _d(date('Y-m-d'))); ?>
                         <?php echo render_date_input('date', 'estimate_add_edit_date', $value); ?>
                     </div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <?php
                   $value = '';
                   if (isset($estimate)) {
@@ -204,7 +204,7 @@
                       }
                   }
                   echo render_date_input('expirydate', 'estimate_add_edit_expirydate', $value); ?>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="clearfix mbot15"></div>
                 <?php $rel_id = (isset($estimate) ? $estimate->id : false); ?>

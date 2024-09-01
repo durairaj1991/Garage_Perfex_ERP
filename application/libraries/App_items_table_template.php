@@ -76,8 +76,10 @@ abstract class App_items_table_template
     protected $headings = [
         'number' => '',
         'item'   => '',
+        'types'  => '',
         'qty'    => '',
         'rate'   => '',
+        'item_discount'=> '',
         'tax'    => '',
         'amount' => '',
     ];
@@ -406,6 +408,11 @@ abstract class App_items_table_template
         return $this->headings['item'];
     }
 
+    public function types_heading()
+    {
+        return $this->headings['types'];
+    }
+
     /**
      * Get quantity heading
      * @return string
@@ -422,6 +429,11 @@ abstract class App_items_table_template
     public function rate_heading()
     {
         return $this->headings['rate'];
+    }
+
+    public function item_discount_heading()
+    {
+        return $this->headings['item_discount'];
     }
 
     /**
@@ -453,7 +465,7 @@ abstract class App_items_table_template
 
         $this->headings['number'] = _l('the_number_sign', '', false);
         $this->headings['item']   = _l($langFrom . '_table_item_heading', '', false);
-
+        
         $qty_heading = _l($langFrom . '_table_quantity_heading', '', false);
 
         if (isset($this->transaction->show_quantity_as)) {
@@ -464,11 +476,13 @@ abstract class App_items_table_template
             }
         }
 
+        $this->headings['types'] = _l($langFrom . '_table_type_heading', '', false);
         $this->headings['qty']    = $qty_heading;
         $this->headings['rate']   = _l($langFrom . '_table_rate_heading', '', false);
+        $this->headings['item_discount']   = _l($langFrom . '_table_item_discount_heading', '', false);
         $this->headings['tax']    = _l($langFrom . '_table_tax_heading', '', false);
         $this->headings['amount'] = _l($langFrom . '_table_amount_heading', '', false);
-
+        // echo "<pre>"; print_r($this->headings). "<pre/>"; die;
         return $this;
     }
 

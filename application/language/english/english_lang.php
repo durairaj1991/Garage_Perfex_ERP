@@ -1030,17 +1030,17 @@ $lang['time_ago_year']      = 'one year ago';
 $lang['time_ago_years']     = '%s years ago';
 
 # Estimates
-$lang['estimates']                                = 'Estimates';
-$lang['estimate']                                 = 'Estimate';
-$lang['estimate_lowercase']                       = 'estimate';
-$lang['create_new_estimate']                      = 'Create New Estimate';
-$lang['view_estimate']                            = 'View estimate';
-$lang['estimate_sent_to_client_success']          = 'The estimate is sent successfully to the client';
-$lang['estimate_sent_to_client_fail']             = 'Problem while sending the estimate';
-$lang['estimate_view']                            = 'View estimate';
+$lang['estimates']                                = 'Job Cards';
+$lang['estimate']                                 = 'Job Card';
+$lang['estimate_lowercase']                       = 'job card';
+$lang['create_new_estimate']                      = 'Create New Job Card';
+$lang['view_estimate']                            = 'View job card';
+$lang['estimate_sent_to_client_success']          = 'The job card is sent successfully to the client';
+$lang['estimate_sent_to_client_fail']             = 'Problem while sending the job';
+$lang['estimate_view']                            = 'View job';
 $lang['estimate_select_customer']                 = 'Customer';
-$lang['estimate_add_edit_number']                 = 'Estimate Number';
-$lang['estimate_add_edit_date']                   = 'Estimate Date';
+$lang['estimate_add_edit_number']                 = 'Job Card Number';
+$lang['estimate_add_edit_date']                   = 'Job Card Date';
 $lang['estimate_add_edit_expirydate']             = 'Expiry Date';
 $lang['estimate_add_edit_currency']               = 'Currency';
 $lang['estimate_add_edit_client_note']            = 'Client Note';
@@ -1049,16 +1049,16 @@ $lang['estimates_toggle_table_tooltip']           = 'Toggle Table';
 $lang['estimate_add_edit_advanced_options']       = 'Advanced Options';
 $lang['estimate_to']                              = 'To';
 $lang['estimates_list_all']                       = 'All';
-$lang['estimate_invoiced_date']                   = 'Estimate Invoiced on %s';
-$lang['edit_estimate_tooltip']                    = 'Edit Estimate';
-$lang['delete_estimate_tooltip']                  = 'Delete Estimate';
+$lang['estimate_invoiced_date']                   = 'Job Card Invoiced on %s';
+$lang['edit_estimate_tooltip']                    = 'Edit Job Card';
+$lang['delete_estimate_tooltip']                  = 'Delete Job Card';
 $lang['estimate_sent_to_email_tooltip']           = 'Send to Email';
-$lang['estimate_already_send_to_client_tooltip']  = 'This estimate is already sent to the client %s';
+$lang['estimate_already_send_to_client_tooltip']  = 'This job card is already sent to the client %s';
 $lang['estimate_view_activity_tooltip']           = 'Activity Log';
-$lang['estimate_send_to_client_modal_heading']    = 'Send estimate to client';
-$lang['estimate_send_to_client_attach_pdf']       = 'Attach estimate PDF';
+$lang['estimate_send_to_client_modal_heading']    = 'Send job card to client';
+$lang['estimate_send_to_client_attach_pdf']       = 'Attach job card PDF';
 $lang['estimate_send_to_client_preview_template'] = 'Preview Email Template';
-$lang['estimate_dt_table_heading_number']         = 'Estimate #';
+$lang['estimate_dt_table_heading_number']         = 'Job Card #';
 $lang['estimate_dt_table_heading_date']           = 'Date';
 $lang['estimate_dt_table_heading_client']         = 'Customer';
 $lang['estimate_dt_table_heading_expirydate']     = 'Expiry Date';
@@ -1070,18 +1070,21 @@ $lang['estimate_convert_to_invoice']              = 'Convert to Invoice';
 $lang['client_payments_tab'] = 'Payments';
 
 # Estimate General
-$lang['estimate_pdf_heading']            = 'ESTIMATE';
+$lang['estimate_pdf_heading']            = 'JOB CARD';
 $lang['estimate_table_item_heading']     = 'Item';
+$lang['estimate_table_type_heading']     = 'Services Type';
+$lang['estimate_table_item_discount_heading']= 'Item Discount';
 $lang['estimate_table_quantity_heading'] = 'Qty';
 $lang['estimate_table_rate_heading']     = 'Rate';
 $lang['estimate_table_tax_heading']      = 'Tax';
 $lang['estimate_table_amount_heading']   = 'Amount';
 $lang['estimate_subtotal']               = 'Sub Total';
+$lang['estimate_labour_chage']           = 'Labour Charge';
 $lang['estimate_adjustment']             = 'Adjustment';
 $lang['estimate_discount']               = 'Discount';
 $lang['estimate_total']                  = 'Total';
 $lang['estimate_to']                     = 'To';
-$lang['estimate_data_date']              = 'Estimate Date';
+$lang['estimate_data_date']              = 'Job Card Date';
 $lang['estimate_data_expiry_date']       = 'Expiry Date';
 $lang['estimate_note']                   = 'Note:';
 $lang['estimate_status_draft']           = 'Draft';
@@ -1092,19 +1095,19 @@ $lang['estimate_status_expired']         = 'Expired';
 $lang['estimate_note']                   = 'Note:';
 
 ## Clients
-$lang['clients_estimate_dt_number']             = 'Estimate #';
+$lang['clients_estimate_dt_number']             = 'Job Card #';
 $lang['clients_estimate_dt_date']               = 'Date';
 $lang['clients_estimate_dt_duedate']            = 'Expiry Date';
 $lang['clients_estimate_dt_amount']             = 'Amount';
 $lang['clients_estimate_dt_status']             = 'Status';
-$lang['clients_nav_estimates']                  = 'Estimates';
+$lang['clients_nav_estimates']                  = 'Job Cards';
 $lang['clients_decline_estimate']               = 'Decline';
 $lang['clients_accept_estimate']                = 'Accept';
-$lang['clients_my_estimates']                   = 'Estimates';
-$lang['clients_estimate_invoiced_successfully'] = 'Thank you for accepting the estimate. Please review the created invoice for the estimate';
-$lang['clients_estimate_accepted_not_invoiced'] = 'Thank you for accepting this estimate';
+$lang['clients_my_estimates']                   = 'Job Cards';
+$lang['clients_estimate_invoiced_successfully'] = 'Thank you for accepting the job card. Please review the created invoice for the estimate';
+$lang['clients_estimate_accepted_not_invoiced'] = 'Thank you for accepting this job card';
 $lang['clients_estimate_declined']              = 'Estimate declined. You can accept the estimate any time before expiry date';
-$lang['clients_estimate_failed_action']         = 'Failed to take action on this estimate';
+$lang['clients_estimate_failed_action']         = 'Failed to take action on this job card';
 $lang['client_add_edit_profile']                = 'Profile';
 
 # Custom Fields
@@ -1347,7 +1350,7 @@ $lang['invoice_recurring_indicator']      = 'Recurring';
 
 # Estimates
 $lang['estimate_convert_to_invoice_successfully'] = 'Estimate converted to invoice successfully';
-$lang['estimate_table_item_description']          = 'Description';
+$lang['estimate_table_item_description']          = 'Service Type';
 
 # Version 1.0.6
 # Invoices
@@ -2504,6 +2507,7 @@ $lang['item_description_placeholder']           = 'Description';
 $lang['item_long_description_placeholder']      = 'Long description';
 $lang['item_quantity_placeholder']              = 'Quantity';
 $lang['item_rate_placeholder']                  = 'Rate';
+$lang['item_discount_placeholder']              = 'Item Discount';
 $lang['tickets_summary']                        = 'Tickets Summary';
 $lang['tasks_list_priority']                    = 'Priority';
 $lang['ticket_status_db_2']                     = 'In Progress';
@@ -3125,7 +3129,7 @@ $lang['company_info_format']                     = 'Company Information Format (
 $lang['customer_info_format']                    = 'Customer Information Format (PDF and HTML)';
 $lang['custom_field_info_format_embed_info']     = 'Custom fields for %s can be easily embedded into PDF and HTML documents by adding the merge fields into the page format at the following page: %s';
 $lang['transfer_lead_notes_to_customer']         = 'Transfer lead notes to customer profile';
-$lang['authorized_signature_text']               = 'Authorized Signature';
+$lang['authorized_signature_text']               = 'Service Advisor signature';
 $lang['show_pdf_signature_invoice']              = 'Show PDF Signature on Invoice';
 $lang['show_pdf_signature_estimate']             = 'Show PDF Signature on Estimate';
 $lang['signature']                               = 'Signature';

@@ -54,7 +54,8 @@
                   }
                   ?>
                     <th width="10%" class="qty" align="right"><?php echo e($qty_heading); ?></th>
-                    <th width="15%" align="right"><?php echo _l('estimate_table_rate_heading'); ?></th>
+                    <th width="10%" align="right"><?php echo _l('estimate_table_rate_heading'); ?></th>
+                    <th width="15%" align="right"><?php echo _l('estimate_table_item_discount_heading'); ?></th>
                     <th width="20%" align="right"><?php echo _l('estimate_table_tax_heading'); ?></th>
                     <th width="10%" align="right"><?php echo _l('estimate_table_amount_heading'); ?></th>
                     <th align="center"><i class="fa fa-cog"></i></th>
@@ -68,8 +69,15 @@
                             placeholder="<?php echo _l('item_description_placeholder'); ?>"></textarea>
                     </td>
                     <td>
-                        <textarea name="long_description" rows="4" class="form-control"
-                            placeholder="<?php echo _l('item_long_description_placeholder'); ?>"></textarea>
+                        <select name="long_description" class="form-control">
+                            <option value="" disabled selected>--Select Service Type--</option>
+                            <option value="new">New</option>
+                            <option value="repair">Repair</option>
+                            <option value="change">Change</option>
+                        </select>
+                        
+                        <!-- <textarea name="long_description" rows="4" class="form-control"
+                            placeholder="<?php echo _l('item_long_description_placeholder'); ?>"></textarea> -->
                     </td>
                     <?php echo render_custom_fields_items_table_add_edit_preview(); ?>
                     <td>
@@ -82,6 +90,10 @@
                     <td>
                         <input type="number" name="rate" class="form-control"
                             placeholder="<?php echo _l('item_rate_placeholder'); ?>">
+                    </td>
+                    <td>
+                        <input type="number" name="item_discount" class="form-control"
+                            placeholder="<?php echo _l('item_discount_placeholder'); ?>">
                     </td>
                     <td>
                         <?php
@@ -122,6 +134,7 @@
                          }
 
                          foreach ($add_items as $item) {
+                            // echo "<pre>"; print_r($item). "<pre/>"; die;
                              $manual    = false;
                              $table_row = '<tr class="sortable item">';
                              $table_row .= '<td class="dragger">';
@@ -138,13 +151,17 @@
                                  $manual              = true;
                              }
                              $table_row .= form_hidden('' . $items_indicator . '[' . $i . '][itemid]', $item['id']);
-                             $amount = $item['rate'] * $item['qty'];
+                             $amount = ($item['rate'] * $item['qty'])-$item['item_discount'];
                              $amount = app_format_number($amount);
                              // order input
                              $table_row .= '<input type="hidden" class="order" name="' . $items_indicator . '[' . $i . '][order]">';
                              $table_row .= '</td>';
                              $table_row .= '<td class="bold description"><textarea name="' . $items_indicator . '[' . $i . '][description]" class="form-control" rows="5">' . clear_textarea_breaks($item['description']) . '</textarea></td>';
-                             $table_row .= '<td><textarea name="' . $items_indicator . '[' . $i . '][long_description]" class="form-control" rows="5">' . clear_textarea_breaks($item['long_description']) . '</textarea></td>';
+                            //  $table_row .= '<td><textarea name="' . $items_indicator . '[' . $i . '][long_description]" class="form-control" rows="5">' . clear_textarea_breaks($item['long_description']) . '</textarea></td>';
+                            $table_row .= '<td><select name="' . $items_indicator . '[' . $i . '][long_description]" class="form-control" ><option value="" disabled selected>--Select Service Type--</option>
+                            <option value="new" '.(($item['long_description'] == "new")?'selected':'').'>New</option>
+                            <option value="repair" '.(($item['long_description'] == "repair")?"selected":'').'>Repair</option>
+                            <option value="change" '.(($item['long_description'] == "change")?"selected":'').'>Change</option></select></td>';
                              $table_row .= render_custom_fields_items_table_in($item, $items_indicator . '[' . $i . ']');
                              $table_row .= '<td><input type="number" min="0" onblur="calculate_total();" onchange="calculate_total();" data-quantity name="' . $items_indicator . '[' . $i . '][qty]" value="' . $item['qty'] . '" class="form-control">';
                              $unit_placeholder = '';
@@ -155,6 +172,7 @@
                              $table_row .= '<input type="text" placeholder="' . $unit_placeholder . '" name="' . $items_indicator . '[' . $i . '][unit]" class="form-control input-transparent text-right" value="' . $item['unit'] . '">';
                              $table_row .= '</td>';
                              $table_row .= '<td class="rate"><input type="number" data-toggle="tooltip" title="' . _l('numbers_not_formatted_while_editing') . '" onblur="calculate_total();" onchange="calculate_total();" name="' . $items_indicator . '[' . $i . '][rate]" value="' . $item['rate'] . '" class="form-control"></td>';
+                             $table_row .= '<td class="item_discount"><input type="number" data-toggle="tooltip" title="' . _l('numbers_not_formatted_while_editing') . '" onblur="calculate_total();" onchange="calculate_total();" name="' . $items_indicator . '[' . $i . '][item_discount]" value="' . $item['item_discount'] . '" class="form-control"></td>';
                              $table_row .= '<td class="taxrate">' . $this->misc_model->get_taxes_dropdown_template('' . $items_indicator . '[' . $i . '][taxname][]', $estimate_item_taxes, (isset($is_proposal) ? 'proposal' : 'estimate'), $item['id'], true, $manual) . '</td>';
                              $table_row .= '<td class="amount" align="right">' . $amount . '</td>';
                              $table_row .= '<td><a href="#" class="btn btn-danger pull-left" onclick="delete_item(this,' . $item['id'] . '); return false;"><i class="fa fa-times"></i></a></td>';
@@ -176,6 +194,25 @@
                     <td class="subtotal">
                     </td>
                 </tr>
+
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <span class="bold tw-text-neutral-700"><?php echo _l('estimate_labour_chage'); ?></span>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="number" data-toggle="tooltip"
+                                    data-title="<?php echo _l('numbers_not_formatted_while_editing'); ?>" value="<?php if (isset($estimate)) {
+                                        echo $estimate->labour_charge;
+                                    } else {
+                                        echo 0;
+                                    } ?>" class="form-control pull-left" name="labour_charge">
+                            </div>
+                        </div>
+                    </td>
+                    <td class="labour-charge"></td>
+                </tr>
                 <tr id="discount_area">
                     <td>
                         <div class="row">
@@ -188,14 +225,14 @@
                                     <input type="number"
                                         value="<?php echo(isset($estimate) ? $estimate->discount_percent : 0); ?>"
                                         class="form-control pull-left input-discount-percent<?php if (isset($estimate) && !is_sale_discount($estimate, 'percent') && is_sale_discount_applied($estimate)) {
-                   echo ' hide';
-               } ?>" min="0" max="100" name="discount_percent">
+                                            echo ' hide';
+                                        } ?>" min="0" max="100" name="discount_percent">
 
                                     <input type="number" data-toggle="tooltip"
                                         data-title="<?php echo _l('numbers_not_formatted_while_editing'); ?>"
                                         value="<?php echo(isset($estimate) ? $estimate->discount_total : 0); ?>" class="form-control pull-left input-discount-fixed<?php if (!isset($estimate) || (isset($estimate) && !is_sale_discount($estimate, 'fixed'))) {
-                   echo ' hide';
-               } ?>" min="0" name="discount_total">
+                                            echo ' hide';
+                                        } ?>" min="0" name="discount_total">
 
                                     <div class="input-group-addon">
                                         <div class="dropdown">
@@ -203,11 +240,11 @@
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <span class="discount-total-type-selected">
                                                     <?php if (!isset($estimate) || isset($estimate) && (is_sale_discount($estimate, 'percent') || !is_sale_discount_applied($estimate))) {
-                   echo '%';
-               } else {
-                   echo _l('discount_fixed_amount');
-               }
-                                    ?>
+                                                        echo '%';
+                                                    } else {
+                                                        echo _l('discount_fixed_amount');
+                                                    }
+                                                    ?>
                                                 </span>
                                                 <span class="caret"></span>
                                             </a>
@@ -215,13 +252,13 @@
                                                 aria-labelledby="dropdown_menu_tax_total_type">
                                                 <li>
                                                     <a href="#" class="discount-total-type discount-type-percent<?php if (!isset($estimate) || (isset($estimate) && is_sale_discount($estimate, 'percent')) || (isset($estimate) && !is_sale_discount_applied($estimate))) {
-                                        echo ' selected';
-                                    } ?>">%</a>
+                                                        echo ' selected';
+                                                    } ?>">%</a>
                                                 </li>
                                                 <li>
                                                     <a href="#" class="discount-total-type discount-type-fixed<?php if (isset($estimate) && is_sale_discount($estimate, 'fixed')) {
-                                        echo ' selected';
-                                    } ?>">
+                                                        echo ' selected';
+                                                    } ?>">
                                                         <?php echo _l('discount_fixed_amount'); ?>
                                                     </a>
                                                 </li>

@@ -43,7 +43,6 @@ class Estimates extends AdminController
 
             $this->load->view('admin/estimates/pipeline/manage', $data);
         } else {
-
             // Pipeline was initiated but user click from home page and need to show table only to filter
             if ($this->input->get('status') || $this->input->get('filter') && $isPipeline) {
                 $this->pipeline(0, true);
@@ -76,7 +75,7 @@ class Estimates extends AdminController
     {
         if ($this->input->post()) {
             $estimate_data = $this->input->post();
-
+            // echo "<pre>";print_r($estimate_data)."<pre/>"; die;
             $save_and_send_later = false;
             if (isset($estimate_data['save_and_send_later'])) {
                 unset($estimate_data['save_and_send_later']);

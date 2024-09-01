@@ -108,14 +108,14 @@
                             </span>
                             <?php echo e(_d($estimate->date)); ?>
                         </p>
-                        <?php if (!empty($estimate->expirydate)) { ?>
+                        <!-- <?php if (!empty($estimate->expirydate)) { ?>
                         <p class="estimate-html-expiry-date tw-mb-0 tw-text-normal">
                             <span class="tw-font-medium tw-text-neutral-700">
                                 <?php echo _l('estimate_data_expiry_date'); ?>:
                             </span>
                             <?php echo e(_d($estimate->expirydate)); ?>
                         </p>
-                        <?php } ?>
+                        <?php } ?> -->
                         <?php if (!empty($estimate->reference_no)) { ?>
                         <p class="estimate-html-reference-no tw-mb-0 tw-text-normal">
                             <span class="tw-font-medium tw-text-neutral-700"><?php echo _l('reference_no'); ?>:</span>
@@ -173,6 +173,20 @@
                                         <?php echo e(app_format_money($estimate->subtotal, $estimate->currency_name)); ?>
                                     </td>
                                 </tr>
+                                
+                                <?php if(isset($estimate->labour_charge)){ ?> 
+                                <tr id="labour-charge">
+                                    <td>
+                                        <span class="bold tw-text-neutral-700">
+                                            <?php echo _l('estimate_labour_chage'); ?>
+                                        </span>
+                                    </td>
+                                    <td class="labour-charge">
+                                        <?php echo e(app_format_money($estimate->labour_charge, $estimate->currency_name)); ?>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+
                                 <?php if (is_sale_discount_applied($estimate)) { ?>
                                 <tr>
                                     <td>

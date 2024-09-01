@@ -1,7 +1,6 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
-
 $dimensions = $pdf->getPageDimensions();
 
 $info_right_column = '';

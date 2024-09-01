@@ -23,6 +23,7 @@
                             <?php echo render_input('paymentmethod', 'payment_method', $payment->paymentmethod); ?>
                             <?php echo render_input('transactionid', 'payment_transaction_id', $payment->transactionid); ?>
                             <?php echo render_textarea('note', 'note', $payment->note, ['rows' => 7]); ?>
+                            <?php echo render_textarea('client_note', 'client note', $payment->client_note, ['rows' => 7]); ?>
 
                             <?php hooks()->do_action('before_admin_edit_payment_form_submit', $payment); ?>
 

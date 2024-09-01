@@ -185,7 +185,7 @@ class Estimates_model extends App_Model
         $key                                       = 1;
         foreach ($_estimate->items as $item) {
             $new_invoice_data['newitems'][$key]['description']      = $item['description'];
-            $new_invoice_data['newitems'][$key]['long_description'] = clear_textarea_breaks($item['long_description']);
+            $new_invoice_data['newitems'][$key]['long_description'] = $item['long_description'];
             $new_invoice_data['newitems'][$key]['qty']              = $item['qty'];
             $new_invoice_data['newitems'][$key]['unit']             = $item['unit'];
             $new_invoice_data['newitems'][$key]['taxname']          = [];
@@ -514,7 +514,10 @@ class Estimates_model extends App_Model
 
         $data  = $hook['data'];
         $items = $hook['items'];
-
+        if (isset($data['item_discount'])) {
+            unset($data['item_discount']);
+        }
+        
         $this->db->insert(db_prefix() . 'estimates', $data);
         $insert_id = $this->db->insert_id();
 
@@ -652,7 +655,7 @@ class Estimates_model extends App_Model
         }
 
         unset($data['removed_items']);
-
+        unset($data['item_discount']);
         $this->db->where('id', $id);
         $this->db->update(db_prefix() . 'estimates', $data);
 

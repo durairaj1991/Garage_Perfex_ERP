@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') or exit('No direct script access allowed');
 $this->ci->load->model('estimates_model');
 
@@ -95,6 +94,7 @@ return App_table::find('estimates')
             $numberOutput .= '<div class="row-options">';
 
             $numberOutput .= '<a href="' . site_url('estimate/' . $aRow['id'] . '/' . $aRow['hash']) . '" target="_blank">' . _l('view') . '</a>';
+            
             if (staff_can('edit',  'estimates')) {
                 $numberOutput .= ' | <a href="' . admin_url('estimates/estimate/' . $aRow['id']) . '">' . _l('edit') . '</a>';
             }

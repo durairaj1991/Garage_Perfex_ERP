@@ -1,7 +1,5 @@
 <?php
-
 defined('BASEPATH') or exit('No direct script access allowed');
-
 $dimensions = $pdf->getPageDimensions();
 
 $info_right_column = '';
@@ -41,9 +39,9 @@ if ($estimate->include_shipping == 1 && $estimate->show_shipping_on_estimate == 
 
 $estimate_info .= '<br />' . _l('estimate_data_date') . ': ' . _d($estimate->date) . '<br />';
 
-if (!empty($estimate->expirydate)) {
-    $estimate_info .= _l('estimate_data_expiry_date') . ': ' . _d($estimate->expirydate) . '<br />';
-}
+// if (!empty($estimate->expirydate)) {
+//     $estimate_info .= _l('estimate_data_expiry_date') . ': ' . _d($estimate->expirydate) . '<br />';
+// }
 
 if (!empty($estimate->reference_no)) {
     $estimate_info .= _l('reference_no') . ': ' . $estimate->reference_no . '<br />';
@@ -75,7 +73,6 @@ $pdf->Ln(hooks()->apply_filters('pdf_info_and_table_separator', 6));
 
 // The items table
 $items = get_items_table_data($estimate, 'estimate', 'pdf');
-
 $tblhtml = $items->table();
 
 $pdf->writeHTML($tblhtml, true, false, false, false, '');
@@ -88,6 +85,14 @@ $tbltotal .= '
     <td align="right" width="85%"><strong>' . _l('estimate_subtotal') . '</strong></td>
     <td align="right" width="15%">' . app_format_money($estimate->subtotal, $estimate->currency_name) . '</td>
 </tr>';
+
+if(isset($estimate->labour_charge)){ 
+    $tbltotal .= '
+    <tr>
+        <td align="right" width="85%"><strong>' . _l('estimate_labour_chage') . '</strong></td>
+        <td align="right" width="15%">' . app_format_money($estimate->labour_charge, $estimate->currency_name) . '</td>
+    </tr>';
+}
 
 if (is_sale_discount_applied($estimate)) {
     $tbltotal .= '
@@ -152,3 +157,9 @@ if (!empty($estimate->terms)) {
     $pdf->Ln(2);
     $pdf->writeHTMLCell('', '', '', '', $estimate->terms, 0, 1, false, true, 'L', true);
 }
+
+$pdf->Ln(4);
+$pdf->Ln(2);
+
+$pdf->Ln(4);
+$pdf->Cell(0, 0, _l('customer signature_________________________') , 0, 1, 'R', 0, '', 0);
