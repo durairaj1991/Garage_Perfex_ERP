@@ -17,7 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 * environments.
 *
 */
-define('APP_BASE_URL', 'http://localhost/automotive');
+define('APP_BASE_URL', 'https://automotive.technologiesmeta.com/');
 
 /*
 * --------------------------------------------------------------------------
@@ -43,17 +43,17 @@ define('APP_DB_HOSTNAME', 'localhost');
 /**
  * The username used to connect to the database
  */
-define('APP_DB_USERNAME', 'root');
+define('APP_DB_USERNAME', 'u319832977_automotive');
 
 /**
  * The password used to connect to the database
  */
-define('APP_DB_PASSWORD', 'Admin');
+define('APP_DB_PASSWORD', 'Automotive@#123');
 
 /**
  * The name of the database you want to connect to
  */
-define('APP_DB_NAME', 'automotive_crm');
+define('APP_DB_NAME', 'u319832977_automotive');
 
 /**
  * @since  2.3.0

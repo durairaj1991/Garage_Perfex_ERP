@@ -140,7 +140,7 @@ function app_format_money($amount, $currency, $excludeSymbol = false)
      * Maybe add the currency symbol
      * @var string
      */
-    $formattedWithCurrency = $currency->placement === 'after' ? $amountFormatted . '' . $symbol : $symbol . '' . $amountFormatted;
+    $formattedWithCurrency = $currency->placement === 'after' ? $amountFormatted . ' ' . $symbol : $symbol . ' ' . $amountFormatted;
 
     return hooks()->apply_filters('app_format_money', $formattedWithCurrency, [
         'amount'         => $amount,
@@ -679,10 +679,10 @@ function add_new_sales_item_post($item, $rel_id, $rel_type)
 
     $CI->db->insert(db_prefix() . 'itemable', [
                     'description'      => $item['description'],
-                    'long_description' => nl2br($item['long_description']),
+                    'long_description' => $item['long_description'],
                     'qty'              => $item['qty'],
-                    'rate'             => number_format($item['rate'], get_decimal_places(), '.', ''),
-                    'item_discount'    => number_format($item['item_discount'], get_decimal_places(), '.', ''),
+                    'rate'             => number_format($item['rate'] ?? 0, get_decimal_places(), '.', '') ,
+                    'item_discount'    => number_format($item['item_discount'] ?? 0 , get_decimal_places(), '.', '') ,
                     'rel_id'           => $rel_id,
                     'rel_type'         => $rel_type,
                     'item_order'       => $item['order'],

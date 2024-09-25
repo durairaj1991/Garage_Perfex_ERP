@@ -71,6 +71,17 @@
                     <address class="invoice-html-company-info tw-text-neutral-500 tw-text-normal">
                         <?php echo format_organization_info(); ?>
                     </address>
+                    <?php $pdf_custom_fields = get_custom_fields('invoice', ['show_on_pdf' => 1]);
+                foreach ($pdf_custom_fields as $field) {
+                    $value = get_custom_field_value($invoice->id, $field['id'], 'invoice');
+                    if ($value == '') {
+                        continue;
+                    } ?>
+                <p class="no-mbot">
+                    <span class="bold"><?php echo e($field['name']); ?>: </span>
+                    <?php echo $value; ?>
+                </p>
+            <?php } ?>
                     <?php hooks()->do_action('after_left_panel_invoicehtml', $invoice); ?>
                 </div>
                 <div class="col-sm-6 text-right transaction-html-info-col-right">
@@ -150,6 +161,16 @@
                                     <?php echo e(app_format_money($invoice->subtotal, $invoice->currency_name)); ?>
                                 </td>
                             </tr>
+                            <?php if ((int)$invoice->labour_charge != 0) { ?>
+                            <tr id="labour_charge">
+                                <td>
+                                    <span class="bold tw-text-neutral-700"><?php echo _l('invoice_labour_chage'); ?></span>
+                                </td>
+                                <td class="labour_charge">
+                                    <?php echo e(app_format_money($invoice->labour_charge, $invoice->currency_name)); ?>
+                                </td>
+                            </tr>
+                            <?php } ?>
                             <?php if (is_sale_discount_applied($invoice)) { ?>
                             <tr>
                                 <td>

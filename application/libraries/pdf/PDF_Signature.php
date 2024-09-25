@@ -17,8 +17,8 @@ trait PDF_Signature
 
         $customerSign = '';
         if ($companySignature) {
-            $this->MultiCell(($dimensions['wk'] / 2) - $dimensions['lm'], 0, _l('authorized_signature_text') . ' ' . $companySignature, 0, 'J', 0, 0, '', '', true, 0, true, true, 0);
-
+            $this->MultiCell(($dimensions['wk'] / 2) - $dimensions['lm'], 0, _l('authorized_signature_text') . ' ' . $companySignature, 0, 'L', 0, 0, '', '', true, 0, true, true, 0);
+            $this->MultiCell(($dimensions['wk'] / 2) - $dimensions['lm'], 0, _l('customer_signature_text') . ' ' . $companySignature, 0, 'R', 0, 0, '', '', true, 0, true, true, 0);
             $leftColumnExists = true;
         }
 

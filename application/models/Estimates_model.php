@@ -139,6 +139,7 @@ class Estimates_model extends App_Model
         $new_invoice_data['show_quantity_as'] = $_estimate->show_quantity_as;
         $new_invoice_data['currency']         = $_estimate->currency;
         $new_invoice_data['subtotal']         = $_estimate->subtotal;
+        $new_invoice_data['labour_charge']    = $_estimate->labour_charge;
         $new_invoice_data['total']            = $_estimate->total;
         $new_invoice_data['adjustment']       = $_estimate->adjustment;
         $new_invoice_data['discount_percent'] = $_estimate->discount_percent;
@@ -195,6 +196,7 @@ class Estimates_model extends App_Model
                 array_push($new_invoice_data['newitems'][$key]['taxname'], $tax['taxname']);
             }
             $new_invoice_data['newitems'][$key]['rate']  = $item['rate'];
+            $new_invoice_data['newitems'][$key]['item_discount']  = $item['item_discount'];
             $new_invoice_data['newitems'][$key]['order'] = $item['item_order'];
             foreach ($custom_fields_items as $cf) {
                 $new_invoice_data['newitems'][$key]['custom_fields']['items'][$cf['id']] = get_custom_field_value($item['id'], $cf['id'], 'items', false);

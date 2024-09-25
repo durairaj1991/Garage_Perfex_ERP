@@ -93,7 +93,7 @@
                     </td>
                     <td>
                         <input type="number" name="item_discount" class="form-control"
-                            placeholder="<?php echo _l('item_discount_placeholder'); ?>" value="0">
+                            placeholder="<?php echo _l('item_discount_placeholder'); ?>">
                     </td>
                     <td style="display:none;">
                         <?php
@@ -163,7 +163,7 @@
                             <option value="repair" '.(($item['long_description'] == "repair")?"selected":'').'>Repair</option>
                             <option value="change" '.(($item['long_description'] == "change")?"selected":'').'>Change</option></select></td>';
                              $table_row .= render_custom_fields_items_table_in($item, $items_indicator . '[' . $i . ']');
-                             $table_row .= '<td class="quantity"><input type="number" min="0" onblur="calculate_total();" onchange="calculate_total();" data-quantity name="' . $items_indicator . '[' . $i . '][qty]" value="' . $item['qty'] . '" class="form-control">';
+                             $table_row .= '<td><input type="number" min="0" onblur="calculate_total();" onchange="calculate_total();" data-quantity name="' . $items_indicator . '[' . $i . '][qty]" value="' . $item['qty'] . '" class="form-control">';
                              $unit_placeholder = '';
                              if (!$item['unit']) {
                                  $unit_placeholder = _l('unit');
@@ -224,13 +224,13 @@
 
                                     <input type="number"
                                         value="<?php echo(isset($estimate) ? $estimate->discount_percent : 0); ?>"
-                                        class="form-control pull-left input-discount-percent<?php if (!isset($estimate) || (isset($estimate) && !is_sale_discount($estimate, 'percent'))) {
+                                        class="form-control pull-left input-discount-percent<?php if (isset($estimate) && !is_sale_discount($estimate, 'percent') && is_sale_discount_applied($estimate)) {
                                             echo ' hide';
                                         } ?>" min="0" max="100" name="discount_percent">
 
                                     <input type="number" data-toggle="tooltip"
                                         data-title="<?php echo _l('numbers_not_formatted_while_editing'); ?>"
-                                        value="<?php echo(isset($estimate) ? $estimate->discount_total : 0); ?>" class="form-control pull-left input-discount-fixed<?php if (isset($estimate) && !is_sale_discount($estimate, 'fixed') && is_sale_discount_applied($estimate)) {
+                                        value="<?php echo(isset($estimate) ? $estimate->discount_total : 0); ?>" class="form-control pull-left input-discount-fixed<?php if (!isset($estimate) || (isset($estimate) && !is_sale_discount($estimate, 'fixed'))) {
                                             echo ' hide';
                                         } ?>" min="0" name="discount_total">
 
@@ -239,10 +239,10 @@
                                             <a class="dropdown-toggle" href="#" id="dropdown_menu_tax_total_type"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <span class="discount-total-type-selected">
-                                                    <?php if (!isset($estimate) || isset($estimate) && (is_sale_discount($estimate, 'fixed') || !is_sale_discount_applied($estimate))) {
-                                                        echo _l('discount_fixed_amount');
-                                                    } else {
+                                                    <?php if (!isset($estimate) || isset($estimate) && (is_sale_discount($estimate, 'percent') || !is_sale_discount_applied($estimate))) {
                                                         echo '%';
+                                                    } else {
+                                                        echo _l('discount_fixed_amount');
                                                     }
                                                     ?>
                                                 </span>
@@ -251,14 +251,14 @@
                                             <ul class="dropdown-menu" id="discount-total-type-dropdown"
                                                 aria-labelledby="dropdown_menu_tax_total_type">
                                                 <li>
-                                                    <a href="#" class="discount-total-type discount-type-percent<?php if (isset($estimate) && is_sale_discount($estimate, 'percent')) {
+                                                    <a href="#" class="discount-total-type discount-type-percent<?php if (!isset($estimate) || (isset($estimate) && is_sale_discount($estimate, 'percent')) || (isset($estimate) && !is_sale_discount_applied($estimate))) {
                                                         echo ' selected';
                                                     } ?>">%</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#" class="discount-total-type discount-type-fixed<?php if (!isset($estimate) || (isset($estimate) && is_sale_discount($estimate, 'fixed')) || (isset($estimate) && !is_sale_discount_applied($estimate))) {
+                                                    <a href="#" class="discount-total-type discount-type-fixed<?php if (isset($estimate) && is_sale_discount($estimate, 'fixed')) {
                                                         echo ' selected';
-                                                    } ?>" selected>
+                                                    } ?>">
                                                         <?php echo _l('discount_fixed_amount'); ?>
                                                     </a>
                                                 </li>

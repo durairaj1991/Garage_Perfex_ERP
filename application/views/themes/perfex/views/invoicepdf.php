@@ -30,8 +30,16 @@ $organization_info = '<div style="color:#424242;">';
 
 $organization_info .= format_organization_info();
 
-$organization_info .= '</div>';
+$organization_info .= '</div><br />';
 
+$pdf_custom_fields = get_custom_fields('invoice', ['show_on_pdf' => 1]);
+foreach ($pdf_custom_fields as $field) {
+    $value = get_custom_field_value($invoice->id, $field['id'], 'invoice');
+    if ($value == '') {
+        continue;
+    }
+    $organization_info .= '<b>'.$field['name'] . '</b>: ' . $value . '<br />';
+}
 // Bill to
 $invoice_info = '<b>' . _l('invoice_bill_to') . ':</b>';
 $invoice_info .= '<div style="color:#424242;">';
@@ -46,12 +54,12 @@ if ($invoice->include_shipping == 1 && $invoice->show_shipping_on_invoice == 1) 
     $invoice_info .= '</div>';
 }
 
-$invoice_info .= '<br />' . _l('invoice_data_date') . ' ' . _d($invoice->date) . '<br />';
+$invoice_info .= '<br /><b>' . _l('invoice_data_date') . '</b> ' . _d($invoice->date) . '<br/>';
 
 $invoice_info = hooks()->apply_filters('invoice_pdf_header_after_date', $invoice_info, $invoice);
 
 if (!empty($invoice->duedate)) {
-    $invoice_info .= _l('invoice_data_duedate') . ' ' . _d($invoice->duedate) . '<br />';
+    $invoice_info .= '<b>'._l('invoice_data_duedate') . '</b> ' . _d($invoice->duedate) . '<br />';
     $invoice_info = hooks()->apply_filters('invoice_pdf_header_after_due_date', $invoice_info, $invoice);
 }
 
@@ -66,14 +74,6 @@ if ($invoice->project_id && get_option('show_project_on_invoice') == 1) {
 }
 
 $invoice_info = hooks()->apply_filters('invoice_pdf_header_before_custom_fields', $invoice_info, $invoice);
-
-foreach ($pdf_custom_fields as $field) {
-    $value = get_custom_field_value($invoice->id, $field['id'], 'invoice');
-    if ($value == '') {
-        continue;
-    }
-    $invoice_info .= $field['name'] . ': ' . $value . '<br />';
-}
 
 $invoice_info      = hooks()->apply_filters('invoice_pdf_header_after_custom_fields', $invoice_info, $invoice);
 $organization_info = hooks()->apply_filters('invoicepdf_organization_info', $organization_info, $invoice);
@@ -99,10 +99,17 @@ $pdf->Ln(8);
 $tbltotal = '';
 $tbltotal .= '<table cellpadding="6" style="font-size:' . ($font_size + 4) . 'px">';
 $tbltotal .= '
-<tr>
+<tr style="background-color:#f0f0f0;">
     <td align="right" width="85%"><strong>' . _l('invoice_subtotal') . '</strong></td>
     <td align="right" width="15%">' . app_format_money($invoice->subtotal, $invoice->currency_name) . '</td>
 </tr>';
+
+if ((int) $invoice->labour_charge != 0) {
+    $tbltotal .= '<tr>
+    <td align="right" width="85%"><strong>' . _l('invoice_labour_chage') . '</strong></td>
+    <td align="right" width="15%">' . app_format_money($invoice->labour_charge, $invoice->currency_name) . '</td>
+</tr>';
+}
 
 if (is_sale_discount_applied($invoice)) {
     $tbltotal .= '

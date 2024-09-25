@@ -21,7 +21,16 @@ $pdf->ln(10);
 
 $organization_info = '<div style="color:#424242;">';
     $organization_info .= format_organization_info();
-$organization_info .= '</div>';
+$organization_info .= '</div><br />';
+
+$pdf_custom_fields = get_custom_fields('estimate', ['show_on_pdf' => 1]);
+foreach ($pdf_custom_fields as $field) {
+    $value = get_custom_field_value($estimate->id, $field['id'], 'estimate');
+    if ($value == '') {
+        continue;
+    }
+    $organization_info .= '<b>'.$field['name'] . '</b>: ' . $value . '<br />';
+}
 
 // Estimate to
 $estimate_info = '<b>' . _l('estimate_to') . '</b>';
@@ -37,14 +46,14 @@ if ($estimate->include_shipping == 1 && $estimate->show_shipping_on_estimate == 
     $estimate_info .= '</div>';
 }
 
-$estimate_info .= '<br />' . _l('estimate_data_date') . ': ' . _d($estimate->date) . '<br />';
+$estimate_info .= '<br /><b>' . _l('estimate_data_date') . '</b>: ' . _d($estimate->date) . '<br />';
 
 // if (!empty($estimate->expirydate)) {
 //     $estimate_info .= _l('estimate_data_expiry_date') . ': ' . _d($estimate->expirydate) . '<br />';
 // }
 
 if (!empty($estimate->reference_no)) {
-    $estimate_info .= _l('reference_no') . ': ' . $estimate->reference_no . '<br />';
+    $estimate_info .= '<b>' . _l('reference_no') . '</b>: ' . $estimate->reference_no . '<br />';
 }
 
 if ($estimate->sale_agent && get_option('show_sale_agent_on_estimates') == 1) {
@@ -55,13 +64,6 @@ if ($estimate->project_id && get_option('show_project_on_estimate') == 1) {
     $estimate_info .= _l('project') . ': ' . get_project_name_by_id($estimate->project_id) . '<br />';
 }
 
-foreach ($pdf_custom_fields as $field) {
-    $value = get_custom_field_value($estimate->id, $field['id'], 'estimate');
-    if ($value == '') {
-        continue;
-    }
-    $estimate_info .= $field['name'] . ': ' . $value . '<br />';
-}
 
 $left_info  = $swap == '1' ? $estimate_info : $organization_info;
 $right_info = $swap == '1' ? $organization_info : $estimate_info;
@@ -79,9 +81,9 @@ $pdf->writeHTML($tblhtml, true, false, false, false, '');
 
 $pdf->Ln(8);
 $tbltotal = '';
-$tbltotal .= '<table cellpadding="6" style="font-size:' . ($font_size + 4) . 'px">';
+$tbltotal .= '<table cellpadding="2" style="font-size:' . ($font_size + 4) . 'px">';
 $tbltotal .= '
-<tr>
+<tr style="background-color:#f0f0f0;">
     <td align="right" width="85%"><strong>' . _l('estimate_subtotal') . '</strong></td>
     <td align="right" width="15%">' . app_format_money($estimate->subtotal, $estimate->currency_name) . '</td>
 </tr>';
@@ -89,8 +91,8 @@ $tbltotal .= '
 if(isset($estimate->labour_charge)){ 
     $tbltotal .= '
     <tr>
-        <td align="right" width="85%"><strong>' . _l('estimate_labour_chage') . '</strong></td>
-        <td align="right" width="15%">' . app_format_money($estimate->labour_charge, $estimate->currency_name) . '</td>
+        <td align="left" width="15%"><strong>' . _l('estimate_labour_chage') . '</strong></td>
+        <td align="right" width="85%">' . app_format_money($estimate->labour_charge, $estimate->currency_name) . '</td>
     </tr>';
 }
 
@@ -157,9 +159,4 @@ if (!empty($estimate->terms)) {
     $pdf->Ln(2);
     $pdf->writeHTMLCell('', '', '', '', $estimate->terms, 0, 1, false, true, 'L', true);
 }
-
-$pdf->Ln(4);
-$pdf->Ln(2);
-
-$pdf->Ln(4);
-$pdf->Cell(0, 0, _l('customer signature_________________________') , 0, 1, 'R', 0, '', 0);
+    $pdf->Ln(15);

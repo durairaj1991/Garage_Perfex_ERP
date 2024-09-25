@@ -85,18 +85,6 @@
                         <address class="estimate-html-company-info tw-text-neutral-500 tw-text-normal">
                             <?php echo format_organization_info(); ?>
                         </address>
-                        <?php $pdf_custom_fields = get_custom_fields('estimate', ['show_on_pdf' => 1]);
-                                foreach ($pdf_custom_fields as $field) {
-                                    $value = get_custom_field_value($estimate->id, $field['id'], 'estimate');
-                                    if ($value == '') {
-                                        continue;
-                                    } ?>
-                                        <p class="no-mbot">
-                                            <span class="bold"><?php echo e($field['name']); ?>: </span>
-                                            <?php echo $value; ?>
-                                        </p>
-                                        <?php
-                                } ?>
                     </div>
                     <div class="col-sm-6 text-right transaction-html-info-col-right">
                         <span class="tw-font-medium tw-text-neutral-600 estimate_to">
@@ -172,33 +160,28 @@
                             ?>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6 col-md-offset-6">
                         <table class="table text-right tw-text-normal">
                             <tbody>
                                 <tr id="subtotal" style="background-color:#f0f0f0;">
-                                    
-                                    <td></td>
-                                     <td></td>
-                                    <td class="text-right">
+                                    <td>
                                         <span class="bold tw-text-neutral-700">
                                             <?php echo _l('estimate_subtotal'); ?>
                                         </span>
                                     </td>
-                                    <td class="subtotal text-right">
+                                    <td class="subtotal">
                                         <?php echo e(app_format_money($estimate->subtotal, $estimate->currency_name)); ?>
                                     </td>
                                 </tr>
 
                                 <?php if(isset($estimate->labour_charge)){ ?> 
                                 <tr id="labour-charge">
-
-                                    <td class="text-left">
+                                    <td>
                                         <span class="bold tw-text-neutral-700">
                                             <?php echo _l('estimate_labour_chage'); ?>
                                         </span>
                                     </td>
-                                                                         <td></td> <td></td>
-                                    <td class="labour-charge text-right">
+                                    <td class="labour-charge">
                                         <?php echo e(app_format_money($estimate->labour_charge, $estimate->currency_name)); ?>
                                     </td>
                                 </tr>
@@ -206,15 +189,14 @@
 
                                 <?php if (is_sale_discount_applied($estimate)) { ?>
                                 <tr>
-                                     <td></td> <td></td>
-                                    <td class="text-right">
+                                    <td>
                                         <span class="bold tw-text-neutral-700"><?php echo _l('estimate_discount'); ?>
                                             <?php if (is_sale_discount($estimate, 'percent')) { ?>
                                             (<?php echo e(app_format_number($estimate->discount_percent, true)); ?>%)
                                             <?php } ?>
                                         </span>
                                     </td>
-                                    <td class="discount text-right">
+                                    <td class="discount">
                                         <?php echo e('-' . app_format_money($estimate->discount_total, $estimate->currency_name)); ?>
                                     </td>
                                 </tr>
@@ -226,25 +208,23 @@
                                 ?>
                                 <?php if ((int)$estimate->adjustment != 0) { ?>
                                 <tr>
-                                     <td></td> <td></td>
-                                    <td class="text-right">
+                                    <td>
                                         <span class="bold tw-text-neutral-700">
                                             <?php echo _l('estimate_adjustment'); ?>
                                         </span>
                                     </td>
-                                    <td class="adjustment text-right">
+                                    <td class="adjustment">
                                         <?php echo e(app_format_money($estimate->adjustment, $estimate->currency_name)); ?>
                                     </td>
                                 </tr>
                                 <?php } ?>
                                 <tr>
-                                     <td></td> <td></td>
-                                    <td class="text-right">
+                                    <td>
                                         <span class="bold tw-text-neutral-700">
                                             <?php echo _l('estimate_total'); ?>
                                         </span>
                                     </td>
-                                    <td class="total text-right">
+                                    <td class="total">
                                         <?php echo e(app_format_money($estimate->total, $estimate->currency_name)); ?>
                                     </td>
                                 </tr>

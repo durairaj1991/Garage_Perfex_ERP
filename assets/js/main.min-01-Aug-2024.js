@@ -2049,7 +2049,7 @@ function clear_item_preview_values(e) {
         a.find('input[name="quantity"]').val(1),
         a.find("select.tax").selectpicker("val", t),
         a.find('input[name="rate"]').val(""),
-        a.find('input[name="item_discount"]').val(0),
+        a.find('input[name="item_discount"]').val(""),
         a.find('input[name="unit"]').val(""),
         $('input[name="task_id"]').val(""),
         $('input[name="expense_id"]').val("");
@@ -2059,21 +2059,29 @@ function add_item_to_table(e, t, a, i) {
     if ("" !== (e = void 0 === e || "undefined" == e ? get_item_preview_values() : e).description || "" !== e.long_description || "" !== e.rate || "" !== e.item_discount) {
         var n = "",
             s = lastAddedItemKey ? (lastAddedItemKey += 1) : $("body").find("tbody .item").length + 1;
-        (lastAddedItemKey = s), (n += '<tr class="sortable item" data-merge-invoice="' + a + '" data-bill-expense="' + i + '">'), (n += '<td class="dragger">'), isNaN(e.qty) && (e.qty = 1), ("" === e.rate || isNaN(e.rate)) && (e.rate = 0),(isNaN(e.item_discount) && (e.item_discount = 0));
-        
+        (lastAddedItemKey = s), (n += '<tr class="sortable item" data-merge-invoice="' + a + '" data-bill-expense="' + i + '">'), (n += '<td class="dragger">'), isNaN(e.qty) && (e.qty = 1), ("" === e.rate || isNaN(e.rate)) && (e.rate = 0),("" === e.item_discount || isNaN(e.item_discount) && (e.item_discount = 0));
         var o = (e.rate * e.qty) - e.item_discount,
             l = "newitems[" + s + "][taxname][]";
         $("body").append('<div class="dt-loader"></div>');
         var d = /<br[^>]*>/gi;
-        
-                var finalamt = (e.rate * e.qty) - e.item_discount;
-
         return (
             get_taxes_dropdown_template(l, e.taxname).done(function (a) {
                 (n += '<input type="hidden" class="order" name="newitems[' + s + '][order]">'),
                     (n += "</td>"),
                     (n += '<td class="bold description"><textarea name="newitems[' + s + '][description]" class="form-control" rows="5">' + e.description + "</textarea></td>"),
-                    
+                    // (n +=
+                    //     '<td><select name="newitems[' +
+                    //     s +
+                    //     '][long_description]" class="form-control item_long_description"><option value="" disabled selected>--Select Service Type--</option><option value="new">New</option><option value="repair">Repair</option><option value="change">Change</option></select></td>'); 
+                    // (n +=
+                    //     '<td><select name="newitems[' +
+                    //     s +
+                    //     '][long_description]" class="form-control item_long_description">' +
+                    //     '<option value="" disabled>--Select Service Type--</option>' +
+                    //     '<option value="new"' + (e.long_description == 'new' ? ' selected' : '') + '>New</option>' +
+                    //     '<option value="repair"' + (e.long_description == 'repair' ? ' selected' : '') + '>Repair</option>' +
+                    //     '<option value="change"' + (e.long_description == 'change' ? ' selected' : '') + '>Change</option>' +
+                    //     '</select></td>');
                     (n +=
                         '<td><select name="newitems[' +
                         s +
@@ -2083,6 +2091,10 @@ function add_item_to_table(e, t, a, i) {
                         '<option value="repair"' + (e.long_description == 'repair' ? ' selected' : '') + '>Repair</option>' +
                         '<option value="change"' + (e.long_description == 'change' ? ' selected' : '') + '>Change</option>' +
                         '</select></td>');
+
+                        console.log('tested by ' + e.long_description);
+                        // +e.long_description +
+                        // '</select></td>');
                 var l = $("tr.main td.custom_field"),
                     r = !1;
                 l.length > 0 &&
@@ -2123,7 +2135,7 @@ function add_item_to_table(e, t, a, i) {
                         }
                         n += '<td class="custom_field">' + t + "</td>";
                     }),
-                    (n += '<td class="quantity"><input type="number" min="0" onblur="calculate_total();" onchange="calculate_total();" data-quantity name="newitems[' + s + '][qty]" value="' + e.qty + '" class="form-control">'),
+                    (n += '<td><input type="number" min="0" onblur="calculate_total();" onchange="calculate_total();" data-quantity name="newitems[' + s + '][qty]" value="' + e.qty + '" class="form-control">'),
                     (e.unit && void 0 !== e.unit) || (e.unit = ""),
                     (n += '<input type="text" placeholder="' + app.lang.unit + '" name="newitems[' + s + '][unit]" class="form-control input-transparent text-right" value="' + e.unit + '">'),
                     (n += "</td>"),
@@ -2144,8 +2156,7 @@ function add_item_to_table(e, t, a, i) {
                         e.item_discount +
                         '" class="form-control"></td>'),
                     // (n += '<td class="taxrate">' + a + "</td>"),
-                    
-                    (n += '<td class="amount" align="right">' + format_money(finalamt, !0) + "</td>"),
+                    (n += '<td class="amount" align="right">' + format_money(o, !0) + "</td>"),
                     (n += '<td><a href="#" class="btn btn-danger pull-left" onclick="delete_item(this,' + t + '); return false;"><i class="fa fa-trash"></i></a></td>'),
                     (n += "</tr>"),
                     $("table.items tbody").append(n),
@@ -2153,9 +2164,6 @@ function add_item_to_table(e, t, a, i) {
                     setTimeout(function () {
                         calculate_total();
                     }, 15);
-                    
-                    console.log(finalamt);
-                    
                 var c = $('input[name="task_id"]').val(),
                     p = $('input[name="expense_id"]').val();
                 return (
@@ -2310,12 +2318,9 @@ function calculate_total() {
             "" === (r = $(this).find("[data-quantity]").val()) && ((r = 1), $(this).find("[data-quantity]").val(1)),
                 (n = accounting.toFixed($(this).find("td.rate input").val() * r, app.options.decimal_places)),
                 (n = parseFloat(n)),
-                (x = accounting.toFixed(
-                ($(this).find("td.quantity input").val() * $(this).find("td.rate input").val()) - 
-                    $(this).find("td.item_discount input").val()
-                )),
-
+                (x = accounting.toFixed($(this).find("td.rate input").val() - $(this).find("td.item_discount input").val())),
                 (n = parseFloat(x)),
+                
                 $(this).find("td.amount").html(format_money(n, !0)),
                 (l += n),
                 (i = $(this)),

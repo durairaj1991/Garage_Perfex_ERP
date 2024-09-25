@@ -17,6 +17,11 @@ Password - Automotive@#123
 1). Sql: ALTER TABLE `tblinvoicepaymentrecords` ADD `client_note` TEXT NULL DEFAULT NULL AFTER `note`;
 2). Sql: ALTER TABLE `tblitemable` ADD `item_discount` DECIMAL(15,2) NULL DEFAULT NULL AFTER `rate`;
 3). Sql: ALTER TABLE `tblestimates` ADD `labour_charge` DECIMAL(15,2) NULL DEFAULT NULL AFTER `discount_type`;
+4). Sql: UPDATE `tbloptions` SET `value` = '250' WHERE `tbloptions`.`id` = 85;
+5). Sql: UPDATE `tbloptions` SET `value` = '0' WHERE `tbloptions`.`id` = 180;
+6). Sql: ALTER TABLE `tblinvoices` ADD `labour_charge` DECIMAL(15,2) NULL DEFAULT NULL AFTER `discount_type`;
+
+
 
 1). Files Section-:
         modified:   application/controllers/admin/Estimates.php
@@ -48,4 +53,70 @@ Password - Automotive@#123
         
         
 
+2). File Section: 01-Aug-2024
+        modified:   application/helpers/sales_helper.php
+        modified:   application/language/english/english_lang.php
+        modified:   application/libraries/App_items_table.php
+        modified:   application/models/Invoices_model.php
+        modified:   application/views/admin/estimates/_add_edit_items.php
+        modified:   application/views/admin/estimates/pipeline/manage.php
+        modified:   application/views/admin/invoices/invoice_preview_html.php
+        modified:   application/views/admin/invoices/invoice_template.php
+        modified:   application/views/themes/perfex/views/estimatehtml.php
+        modified:   application/views/themes/perfex/views/estimatepdf.php
+        modified:   application/views/themes/perfex/views/invoicehtml.php
+        modified:   assets/js/main.min.js
+
+Changed and backup files :
+        application/libraries/App_items_table-01-Aug-2024.php
+        application/logs/log-2024-09-01.php
+        application/views/admin/estimates/_add_edit_items-01-Aug-2024.php
+        application/views/themes/perfex/views/estimate_preview_template.php
+        application/views/themes/perfex/views/estimatehtml-01-Aug-2024.php
+        application/views/themes/perfex/views/estimatepdf-01-Aug-2024.php
+        assets/js/main.min-01-Aug-2024.js
+
+Changed and backup files On 03-Sep-2024 :
+        modified:   application/helpers/sales_helper.php
+        modified:   application/language/english/english_lang.php
+        modified:   application/libraries/App_items_table.php
+        modified:   application/models/Invoices_model.php
+        modified:   application/views/admin/estimates/_add_edit_items.php
+        modified:   application/views/admin/estimates/pipeline/manage.php
+        modified:   application/views/admin/invoices/invoice_preview_html.php
+        modified:   application/views/admin/invoices/invoice_template.php
+        modified:   application/views/themes/perfex/views/estimatehtml.php
+        modified:   application/views/themes/perfex/views/estimatepdf.php
+        modified:   application/views/themes/perfex/views/invoicehtml.php
+        modified:   application/views/themes/perfex/views/invoicepdf.php
+        modified:   assets/js/main.min.js
+        modified:   document-changed-file
+
+Untracked files On 03-Sep-2024 :
+        application/libraries/App_items_table-01-Aug-2024.php
+        application/logs/log-2024-09-01.php
+        application/logs/log-2024-09-02.php
+        application/logs/log-2024-09-03.php
+        application/views/admin/estimates/_add_edit_items-01-Aug-2024.php
+        application/views/themes/perfex/views/estimate_preview_template.php
+        application/views/themes/perfex/views/estimatehtml-01-Aug-2024.php
+        application/views/themes/perfex/views/estimatepdf-01-Aug-2024.php
+        assets/js/main.min-01-Aug-2024.js
+
+Changed and backup files On 05-Sep-2024 :
+        modified:   application/helpers/sales_helper.php
+        modified:   application/language/english/english_lang.php
+        modified:   application/libraries/App_items_table.php
+        modified:   application/libraries/pdf/PDF_Signature.php
+        modified:   application/models/Invoices_model.php
+        modified:   application/views/admin/estimates/_add_edit_items.php
+        modified:   application/views/admin/estimates/estimate_template.php
+        modified:   application/views/admin/estimates/pipeline/manage.php
+        modified:   application/views/admin/invoices/invoice_preview_html.php
+        modified:   application/views/admin/invoices/invoice_template.php
+        modified:   application/views/themes/perfex/views/estimatehtml.php
+        modified:   application/views/themes/perfex/views/estimatepdf.php
+        modified:   application/views/themes/perfex/views/invoicehtml.php
+        modified:   application/views/themes/perfex/views/invoicepdf.php
+        modified:   assets/js/main.min.js
 

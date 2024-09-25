@@ -29,9 +29,11 @@ $lang['invoice_status_overdue']                = 'Overdue';
 $lang['invoice_status_not_paid_completely']    = 'Partially Paid';
 $lang['invoice_pdf_heading']                   = 'INVOICE';
 $lang['invoice_table_item_heading']            = 'Item';
+$lang['invoice_table_type_heading']            = 'Services Type';
+$lang['invoice_table_item_discount_heading']   = 'Item Discount';
 $lang['invoice_table_quantity_heading']        = 'Qty';
 $lang['invoice_table_rate_heading']            = 'Rate';
-$lang['invoice_table_tax_heading']             = 'Tax';
+$lang['invoice_table_tax_heading']             = 'Item Discount';
 $lang['invoice_table_amount_heading']          = 'Amount';
 $lang['invoice_subtotal']                      = 'Sub Total';
 $lang['invoice_adjustment']                    = 'Adjustment';
@@ -1078,7 +1080,7 @@ $lang['estimate_table_quantity_heading'] = 'Qty';
 $lang['estimate_table_rate_heading']     = 'Rate';
 $lang['estimate_table_tax_heading']      = 'Tax';
 $lang['estimate_table_amount_heading']   = 'Amount';
-$lang['estimate_subtotal']               = 'Sub Total';
+$lang['estimate_subtotal']               = 'Item Total';
 $lang['estimate_labour_chage']           = 'Labour Charge';
 $lang['estimate_adjustment']             = 'Adjustment';
 $lang['estimate_discount']               = 'Discount';
@@ -1148,6 +1150,7 @@ $lang['acs_contract_types'] = 'Contract Types';
 # Version 1.0.4
 # Invoice Items
 $lang['invoice_item_long_description'] = 'Long Description';
+$lang['invoice_labour_chage']           = 'Labour Charge';
 
 # Customers
 $lang['clients_list_phone']                = 'Phone';
@@ -1345,7 +1348,7 @@ $lang['email_template_contracts_fields_heading'] = 'Contracts';
 
 # Invoices General
 $lang['invoice_estimate_general_options'] = 'General Options';
-$lang['invoice_table_item_description']   = 'Description';
+$lang['invoice_table_item_description']   = 'Service Type';
 $lang['invoice_recurring_indicator']      = 'Recurring';
 
 # Estimates
@@ -2503,7 +2506,7 @@ $lang['send_expiry_reminder']                   = 'Send expiration reminder';
 $lang['sent_expiry_reminder_success']           = 'Expiration reminder successfully sent';
 $lang['sent_expiry_reminder_fail']              = 'Failed to send expiration reminder';
 $lang['leads_default_status']                   = 'Default status';
-$lang['item_description_placeholder']           = 'Description';
+$lang['item_description_placeholder']           = 'Item';
 $lang['item_long_description_placeholder']      = 'Long description';
 $lang['item_quantity_placeholder']              = 'Quantity';
 $lang['item_rate_placeholder']                  = 'Rate';
@@ -3129,7 +3132,8 @@ $lang['company_info_format']                     = 'Company Information Format (
 $lang['customer_info_format']                    = 'Customer Information Format (PDF and HTML)';
 $lang['custom_field_info_format_embed_info']     = 'Custom fields for %s can be easily embedded into PDF and HTML documents by adding the merge fields into the page format at the following page: %s';
 $lang['transfer_lead_notes_to_customer']         = 'Transfer lead notes to customer profile';
-$lang['authorized_signature_text']               = 'Service Advisor signature';
+$lang['authorized_signature_text']               = 'Service Advisor Signature';
+$lang['customer_signature_text']                 = 'Customer Signature';
 $lang['show_pdf_signature_invoice']              = 'Show PDF Signature on Invoice';
 $lang['show_pdf_signature_estimate']             = 'Show PDF Signature on Estimate';
 $lang['signature']                               = 'Signature';
@@ -3317,7 +3321,7 @@ $lang['settings_sales_credit_note_number_format']  = 'Credit Note Number Format'
 $lang['sms_reminder_sent_to']                      = 'SMS reminder sent to %s';
 $lang['ideal_customer_statement_descriptor']       = 'Statement Descriptor (shown in customer bank statement)';
 $lang['payment_received_awaiting_confirmation']    = 'Your payment was received and is awaiting confirmation.';
-$lang['discount_fixed_amount']                     = 'Fixed Amount';
+$lang['discount_fixed_amount']                     = 'Fixed';
 $lang['timesheet_duration_instead']                = 'Enter time duration instead';
 $lang['timesheet_date_instead']                    = 'Set start and end time instead';
 $lang['allow_non_admin_members_to_import_leads']   = 'Allow non-admin staff members to import leads';

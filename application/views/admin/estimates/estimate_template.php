@@ -284,8 +284,8 @@
                                     class="control-label"><?php echo _l('discount_type'); ?></label>
                                 <select name="discount_type" class="selectpicker" data-width="100%"
                                     data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
-                                    <option value="" selected><?php echo _l('no_discount'); ?></option>
-                                    <option value="before_tax" <?php
+                                    <option value=""><?php echo _l('no_discount'); ?></option>
+                                    <option value="before_tax" selected <?php
                               if (isset($estimate)) {
                                   if ($estimate->discount_type == 'before_tax') {
                                       echo 'selected';

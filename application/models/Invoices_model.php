@@ -387,7 +387,9 @@ class Invoices_model extends App_Model
 
         $data  = $hook['data'];
         $items = $hook['items'];
-
+        if (isset($data['item_discount'])) {
+            unset($data['item_discount']);
+        }
         $this->db->insert(db_prefix() . 'invoices', $data);
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
@@ -866,7 +868,9 @@ class Invoices_model extends App_Model
         }
 
         unset($data['removed_items']);
-
+        if (isset($data['item_discount'])) {
+            unset($data['item_discount']);
+        }
         $this->db->where('id', $id)->update('invoices', $data);
 
         if ($this->db->affected_rows() > 0) {
